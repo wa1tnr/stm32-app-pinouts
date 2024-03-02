@@ -1,1 +1,14 @@
 Sat  2 Mar 22:51:40 UTC 2024
+
+Targets
+
+  F405: Adafruit STM32F405 Express
+  F411: WeAct Black Pill USD $30  STM32F411CEU6  22 Nov 2019 schematic
+  F407: STM32F407 Discovery
+
+
+Unconfirmed (first source found used):
+
+  F405:  PB10, PB11 for TX/RX (Serial3 in Arduino)
+
+end.
