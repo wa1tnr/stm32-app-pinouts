@@ -1,11 +1,14 @@
-Sat  2 Mar 22:51:40 UTC 2024
+Sat  2 Mar 23:31:10 UTC 2024
 
 Targets
 
-  F405: Adafruit STM32F405 Express
-  F411: WeAct Black Pill USD $30  STM32F411CEU6  22 Nov 2019 schematic
-  F407: STM32F407 Discovery
+  F405: Adafruit STM32F405 Express - USD $40 from Adafruit (in stock, March, 2024)
+  F411: WeAct Black Pill USD $30 from Adafruit (in stock, March 2024) STM32F411CEU6  22 Nov 2019 schematic
+  F407: STM32F407 Discovery - USD $22 from DigiKey March 2024 (1400+ in stock)
+        [ https://www.digikey.com/short/fh7m50wh ]
+        [ digi-key: 497-16287-ND ]
 
+  E407: The Olimex take on the F407 - has Ethernet port - USD $33 [ https://www.digikey.com/short/2hfr2f1b ] (58 in stock, March 2024)
 
 Unconfirmed (first source found used):
 
