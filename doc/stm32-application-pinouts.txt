@@ -11,4 +11,12 @@ Unconfirmed (first source found used):
 
   F405:  PB10, PB11 for TX/RX (Serial3 in Arduino)
 
+         The Arduino IDE can be told in its menus to use USB CDC rather than any USART to map Serial.begin() to the soldered USB port of the Adafruit STM32F405 Express board.
+
+Applications
+
+  mecrisp-stellaris for F40x series
+  eForth by C. H. Ting (has been flashed to all three, no changes at all)
+  Arduino IDE programs (any)
+
 end.
