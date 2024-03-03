@@ -1,0 +1,9 @@
+Sun  3 Mar 22:17:34 UTC 2024
+
+      USART1_TX   USART1_RX   USART2_TX   USART2_RX
+      =========   =========   =========   =========
+F411  PB6,        PB7,        PA2,        PA3,
+
+
+F405
+F407
