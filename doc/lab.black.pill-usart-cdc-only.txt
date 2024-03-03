@@ -176,4 +176,41 @@ Command line was:
 # end.
 
 
+CATCH-ALL
+
+mecrisp 2.6.3 on PA2, PA3 - datasheet says USART2_TX is PA2 so for this target, the pairs are
+enumerated low, high (PA2 is lower than PA3 in number) for TX, RX.  Opposite of what was
+supposed.
+
+PB6, PB7 would then be:  USART1_TX, USART1_RX
+
+PA9, PA10 would also then be:  USART1_TX, USART1_RX
+
+F405 Express would use SDA and SCL as silc-screened, for eForth.
+
+For mecrisp it would use USART2 - find a pair it has (if F405 does have a pair) for this.
+
+  F405:
+
+    USART1_TX  PA9   F405Exp: tied to 3.3v
+    USART1_RX  PA10  F405Exp: tied to 3.3v
+
+    USART1_TX  PB6   SCL-F405Exp eForth
+    USART1_RX  PB7   SDA-F405Exp eForth
+
+    USART2_TX  PA2   F405Exp n/c
+    USART2_RX  PA3   F405Exp VDIV
+
+    USART2_TX  PD5   F405Exp not present
+    USART2_RX  PD6   F405Exp not present
+
+
+    Adafruit F405 Express uses USART3 for its silc-screened
+    TX/RX (labeled) pair.  Mecrisp would need a change of the
+    default base (easy enough) but eForth would require assembler
+    source changes, then a recompile.
+
+    Since the F405 Express already supports the default (PB6, PB7)
+    on USART1, this is not usually an issue.
+
 end.
