@@ -210,7 +210,16 @@ For mecrisp it would use USART2 - find a pair it has (if F405 does have a pair) 
     default base (easy enough) but eForth would require assembler
     source changes, then a recompile.
 
-    Since the F405 Express already supports the default (PB6, PB7)
-    on USART1, this is not usually an issue.
+    Since the F405 Express already supports the eForth default
+    pair (PB6, PB7) on USART1, this is not usually an issue.
+
+    Mecrisp runs on PA2, PA3 (USART2) on the Black Pill (see
+    above).  Checking again, there is no F405 port of Mecrisp, so
+    that by itself makes the F405 a non-issue wrt Mecrisp (without
+    more work put into a new port to F405 for Mecrisp-Stellaris).
+
+    Could upload Ting's eForth to F405 Express to prove the point,
+    on the SCL/SDA (silc-screened) pair (PB6, PB7, where Ting mapped
+    the tty io to USART1).
 
 end.
