@@ -11,7 +11,10 @@ F407  PA9, PB6    PA10, PB7   PA2, PD5    PA3, PD6    PC6, PG14   PC7, PG9
 
       USART3_TX   USART3_RX
       =========   =========
-      PB10, PD8,  PB11, PD9
+      PB10, PD8,  PB11, PD9,
       PC10        PC11
 
-F405
+F405  TODO
+
+
+end.
