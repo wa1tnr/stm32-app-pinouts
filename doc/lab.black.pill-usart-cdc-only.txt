@@ -1,0 +1,179 @@
+lab.black.pill-usart-cdc-only.txt
+
+Sun  3 Mar 16:10:06 UTC 2024
+
+THIS LAB is about using CDC/ACM only (firmware already resident
+on the Black Pill; CP2104 providing CDC/ACM interface to the host
+PC from the Black Pill USART, pins PB7/PB6).  As this has been
+done before, it'll amount to recreating the same conditions.
+
+Quick summary
+
+    success on PB7/PB6 pair, Black Pill (F411) -- can
+    converse with the text intepreter running eForth on the
+    F411 target board.
+
+    dfu-util 'works' on the USB-C connector of the WeAct F411
+    Black Pill board (as in Exhibit AA) to upload the firmware.
+
+
+
+LAB NOTES
+
+   CP2104: TXD to PB7 (blue), RXD to PB6 (green) in a cross-over config
+   (green on left on target, with target USB to the left as well;
+   green on the right on CP2104, USB also to the left).
+
+   Result: no gots.  First try dfu-util to upload new firmware:
+
+     * remove CP2104 TXD/RXD wires (keep the shared ground, +5V)
+
+     * USB-C connection, Black Pill, to host Linux amd64 PC
+
+     * press and hold BOOT0, toggle NRST
+
+     * journalctl -f (follow mode) (use sudo)
+
+     * dfu-util -l  (list) - alt=0 is the one wanted for initial uses.
+
+       Exhibit AA lists the output.
+
+   Now upload the firmware:
+
+       dfu-util -a 0 --dfuse-address 0x08000000 -D ./firmware.bin
+
+       Exhibit BB lists the output of firmware upload session.
+
+   Repeat test of USB CDC/ACM on /dev/ttyUSB0 (CP2104 enumerates to that device).
+
+       Exhibit CC list the conversation with eForth firmware (wiring
+       is now somewhat validated; always wonder until confirmation, as
+       have seen strange things before when USART pins are swapped).
+
+       firmware version: stm32eForth v7.20
+
+CP2104 Friend from adafruit - TXD and RXD concerns
+
+  PB7/PB6 TX/RX pair assumed, Black Pill.  TODO: Verify they are
+  not swapped (right here in this description).
+
+  PB7/TX to TXD CP2104 Friend.
+  PB6/RX to RXD CP2104 Friend.
+
+  At first glance this is obviously 'wrong' in that TX to TX is
+  not an appropriate USART wiring configuration at all.
+
+  Adafruit, Schematic, CP2104 Friend:
+
+      (TODO - Internet trouble today)
+
+Exhibit AA:
+output of dfu-util -l confirms:
+
+ dfu $ dfu-util -l
+dfu-util 0.11
+
+Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
+Copyright 2010-2021 Tormod Volden and Stefan Schmidt
+This program is Free Software and has ABSOLUTELY NO WARRANTY
+Please report bugs to http://sourceforge.net/p/dfu-util/tickets/
+
+Found DFU: [0483:df11] ver=2200, devnum=7, cfg=1, intf=0, path="1-9", alt=3, name="@Device Feature/0xFFFF0000/01*004 e", serial="123456789ABC"
+Found DFU: [0483:df11] ver=2200, devnum=7, cfg=1, intf=0, path="1-9", alt=2, name="@OTP Memory /0x1FFF7800/01*512 e,01*016 e", serial="123456789ABC"
+Found DFU: [0483:df11] ver=2200, devnum=7, cfg=1, intf=0, path="1-9", alt=1, name="@Option Bytes  /0x1FFFC000/01*016 e", serial="123456789ABC"
+Found DFU: [0483:df11] ver=2200, devnum=7, cfg=1, intf=0, path="1-9", alt=0, name="@Internal Flash  /0x08000000/04*016Kg,01*064Kg,03*128Kg", serial="123456789ABC"
+
+ dfu $ 
+
+Exhibit BB:
+
+ dfu $ dfu-util -a 0 --dfuse-address 0x08000000 -D ./firmware.bin
+Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
+Copyright 2010-2021 Tormod Volden and Stefan Schmidt
+This program is Free Software and has ABSOLUTELY NO WARRANTY
+Please report bugs to http://sourceforge.net/p/dfu-util/tickets/
+
+dfu-util: Warning: Invalid DFU suffix signature
+dfu-util: A valid DFU suffix will be required in a future dfu-util release
+Opening DFU capable USB device...
+Device ID 0483:df11
+Device DFU version 011a
+Claiming USB DFU Interface...
+Setting Alternate Interface #0 ...
+Determining device status...
+DFU state(10) = dfuERROR, status(10) = Device's firmware is corrupt. It cannot return to run-time (non-DFU) operations
+Clearing status
+Determining device status...
+DFU state(2) = dfuIDLE, status(0) = No error condition is present
+DFU mode device DFU version 011a
+Device returned transfer size 2048
+DfuSe interface name: "Internal Flash  "
+Downloading element to address = 0x08000000, size = 8492
+Erase   	[=========================] 100%         8492 bytes
+Erase    done.
+Download	[=========================] 100%         8492 bytes
+Download done.
+File downloaded successfully
+ dfu $
+
+
+Exhibit CC:
+
+picocom v3.1
+
+port is        : /dev/ttyUSB0
+flowcontrol    : none
+baudrate is    : 115200
+parity is      : none
+databits are   : 8
+stopbits are   : 1
+escape is      : C-|
+local echo is  : no
+noinit is      : no
+noreset is     : no
+hangup is      : no
+nolock is      : no
+send_cmd is    : ascii-xfr -sn -l 5 -c 1
+receive_cmd is : rz -vv -E
+imap is        : 
+omap is        : lfcr,delbs,
+emap is        : crcrlf,delbs,
+logfile is     : none
+initstring     : none
+exit_after is  : not set
+exit is        : no
+
+Type [C-|] [C-h] to see available commands
+Terminal ready
+ ok
+ ok
+COLD
+stm32eForth v7.20
+ ok
+WORDS
+ COLD HI WORDS DECOMPILE SEE .ID >NAME .S DUMP VARIABLE CREATE CONSTANT IMMEDIATE : ] ; OVERT $COMPILE ?UNIQUE ." $" ABORT" WHILE ELSE AFT THEN REPEAT AHEAD IF AGAIN UNTIL NEXT BEGIN FOR LITERAL COMPILE [COMPILE] , ALLOT ' TURNKEY I! ERASE_SECTOR QUIT PRESET EVAL ?STACK .OK [ $INTERPRET ABORT QUERY ACCEPT NAME? SAME? NAME> TOKEN WORD CHAR \ ( .( PARSE ? . U. U.R .R CR TYPE SPACES SPACE KEY NUMBER? DIGIT? DECIMAL HEX #> SIGN #S # HOLD <# EXTRACT DIGIT PACK$ FILL MOVE CMOVE @EXECUTE TIB PAD HERE PICK DEPTH >CHAR ALIGNED */ */MOD / MOD /MOD M/MOD UM/MOD WITHIN LAST CP CONTEXT HLD 'EVAL #TIB >IN SPAN BASE 'BOOT DNEGATE COUNT 2@ 2! +! MIN MAX > < U< = ABS NEGATE NOT D+ 2DUP 2DROP ROT ?DUP 2/ 2* CELL/ CELLS BL CELL- CELL+ 2- 2+ 1- 1+ M* UM* * - + LSHIFT RSHIFT UM+ XOR OR AND 0< OVER SWAP DUP DROP SP@ >R R@ R> C@ C! @ ! EXIT EXECUTE NOP EMIT ?KEY ok
+3 ERASE_SECTOR ok
+2 ERASE_SECTOR ok
+1 ERASE_SECTOR ok
+0 ERASE_SECTOR ok
+
+Sectors erased (this erases the firmware from the flash, while
+the same image runs in SRAM).
+
+Four sectors should be enough: they are 16 kb each p. 109, eForth manual PDF ("Irreducible Complexity" eForth for Discovery by Chen-Hanson Ting, found in 2165_stm32eForth720.zip - see https://www.forth.org/svfig/ and look for 'Offete Store' or similar, or Dr. Ting's name - many .zip files from Ting)
+
+    [ https://www.forth.org/OffeteStore/OffeteStore.html ]  File is 'STM32 eForth - 2014 - zip':
+
+    [ https://www.forth.org/OffeteStore/2165_stm32eForth720.zip ]
+
+Command line was:
+
+ mc $ ./this_script.sh /dev/ttyUSB0 
+
+ mc $ cat ./this_script.sh
+#!/bin/sh
+    picocom -e \\ -f n -p n -d 8 -b 115200 --omap delbs,lfcr --send-cmd "ascii-xfr -sn -l 5 -c 1" ${1}
+# end.
+
+
+end.
