@@ -1,0 +1,14 @@
+Sun  3 Mar 16:04:29 UTC 2024
+
+[ https://www.reddit.com/r/stm32f4/comments/18hpvob/how_to_enter_stm32_uart_bootloader/?rdt=39429 ]
+
+    "Check out AN2606. You need to use either PA9/PA10 or PD5/PD6 for the uart, and send 0x7f to enter the bootloader."
+
+    Note: had AN2606 on-hand already.  Probably had a reason for that.
+
+    Will try: PA9/PA10 and CP2104 Friend; may try the pullups to 3.3 (100k) on TX/RX (PA9/PA10 or swapped PA10/PA9).
+
+    Seems to suggest the upload routines resident on the chip utilize the Intel .HEX format, and to start it (get it recognized) by sending the byte 0x7F once.
+
+
+end.
