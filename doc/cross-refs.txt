@@ -7,6 +7,9 @@ F411  PA9, PA15,  PA10, PB3,  PA2, PD5    PA3, PD6    PC6, PA11   PC7, PA12
 
       USART1_TX   USART1_RX   USART2_TX   USART2_RX   USART6_TX   USART6_RX
       =========   =========   =========   =========   =========   =========
-F407
+F407                          PA2,        PA3,
+      USART3_TX   USART3_RX
+      =========   =========
+      PB10        PB11
 
 F405
