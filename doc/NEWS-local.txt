@@ -1,0 +1,15 @@
+Sun  3 Mar 20:28:51 UTC 2024
+
+   news - STM32F407 Discovery found in the 'good' plastic bin
+          with several other targets (incl. 2x mounted Black Pill
+          targets).
+
+   That means additional tests can be run.  Thinking about a
+   mecrisp install, looking for one USART pair that could work
+   on F405 Express as well (Ting's eForth runs on all three
+   targets, unmodified: F405, F407 and F411 .. probably others).
+
+   Since PB6 PB7 already works on Black Pill and F407 Discovery,
+   defining it for mecrisp F407 (if it isn't already) may be
+   the right way to go here (following Ting's lead).
+
