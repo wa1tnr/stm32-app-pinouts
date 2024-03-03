@@ -5,14 +5,10 @@ Sun  3 Mar 22:17:34 UTC 2024
 F411  PA9, PA15,  PA10, PB3,  PA2, PD5    PA3, PD6    PC6, PA11   PC7, PA12
       PB6         PB7
 
-      USART1_TX   USART1_RX   USART2_TX   USART2_RX   USART6_TX   USART6_RX
-      =========   =========   =========   =========   =========   =========
-F407  PA9, PB6    PA10, PB7   PA2, PD5    PA3, PD6    PC6, PG14   PC7, PG9
-
-      USART3_TX   USART3_RX
-      =========   =========
-      PB10, PD8,  PB11, PD9,
-      PC10        PC11
+      USART1_TX   USART1_RX   USART2_TX   USART2_RX   USART6_TX   USART6_RX   USART3_TX   USART3_RX
+      =========   =========   =========   =========   =========   =========   =========   =========
+F407  PA9, PB6    PA10, PB7   PA2, PD5    PA3, PD6    PC6, PG14   PC7, PG9    PB10, PD8,  PB11, PD9,
+                                                                              PC10        PC11
 
 F405  TODO
 
