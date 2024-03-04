@@ -1,3 +1,32 @@
+Mon  4 Mar 19:13:19 UTC 2024
+
+   news - stm32flash exists and Debian amd64 Bookworm already
+          has it.  Appears to allow USB to USART bridge to function
+          as firmware update interface to STM32F407.
+
+          sourceforge hosts the documentation and initial distribution.
+
+          Quick Summary:
+
+          THREE distinct ways to update firmware STM32F407:
+
+          st-link is SWD type interface similar to use of J-Link EDU
+          with the SAMD21 target.  Available on STM32F407 Discovery.
+
+          DFU is present and enumerates the soldered-on USB port for
+          use with dfu-util (itself available from Debian amd64
+          Bookworm).  dfu-util is what is usually used in the reference
+          system (local to this author).
+
+          stm32flash is a utility (third party?) to facilitate use of
+          the USART (or i2c) to update firmware.  Enumerates similarly
+          to how DFU does (same pin strappings to wake it up).
+
+          Ostensibly the first external device to 'answer' wins (if the
+          USART sees activity on RX, possibly only the single byte 0x7f,
+          that is what 'takes over' and the DFU port (USB) goes dormant
+          (or 'we' just do not care).
+
 Sun  3 Mar 20:28:51 UTC 2024
 
    news - STM32F407 Discovery found in the 'good' plastic bin
