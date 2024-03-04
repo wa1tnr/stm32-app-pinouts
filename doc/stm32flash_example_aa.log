@@ -1,0 +1,22 @@
+ $  ls
+ $ stm32flash -b 115200 -r ./gotcha-now.bin /dev/ttyUSB0
+stm32flash 0.7
+
+http://stm32flash.sourceforge.net/
+
+Interface serial_posix: 115200 8E1
+Version      : 0x31
+Option 1     : 0x00
+Option 2     : 0x00
+Device ID    : 0x0431 (STM32F411xx)
+- RAM        : Up to 128KiB  (12288b reserved by bootloader)
+- Flash      : Up to 512KiB (size first sector: 1x16384)
+- Option RAM : 16b
+- System RAM : 30KiB
+Memory read
+Read address 0x08048b00 (56.79%)  [local note: snapshot value]
+Read address 0x08080000 (100.00%) Done.
+
+so it seems to work just fine on PA9/PA10 Black Pill.
+
+end.
