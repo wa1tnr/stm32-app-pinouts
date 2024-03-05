@@ -1,0 +1,57 @@
+Mon  4 Mar 23:56:08 UTC 2024
+
+stm32flash Results:
+
+  firmware freely uploaded with different definitions
+  for the 'version' word.
+
+  Both worked fine.
+
+  The new alternate is of correct length (even multiple
+  of 4096 bytes - in this case 3x that amount, for 12288
+  bytes of read (downloaded) image, and re-uploaded from
+  the very same image file).
+
+  Further review shows both alternate images (they are,
+  neither of them, the distributed image) 'work' fine.
+
+  All this is done by switching to PA9/PA10 during the
+  use of stm32flash.
+
+  Firmware decides what method is used to talk to the target
+  application, once firmware is resident (as usual).
+
+  PB6/PB7 pair used to converse with target (as with any
+  stm32eForth implementation from Dr. C.H. Ting - also on
+  USART1 but port B - stm32flash uses USART1, port A).
+
+Command Line history (old to new):
+
+ mc $ #  stm32flash -b 115200 -r   ./eForth720-merlain-plekque-a.bin   /dev/ttyUSB0
+ mc $ #  stm32flash -b 115200 -r   ./eForth720-merlain-plekque-a.bin  -S 0x08000000:16384 /dev/ttyUSB0
+
+ mc $ #  stm32flash -b 115200 -r   ./eForth720-merlain-plekque-a.bin  -S 0x08000000:12288 /dev/ttyUSB0
+ mc $ #  stm32flash -b 115200 -r   ./eForth720-nomalque-trange-a.bin  -S 0x08000000:12288 /dev/ttyUSB0
+
+ mc $ #  stm32flash -b 115200 -w   ./eForth720-merlain-plekque-a.bin   /dev/ttyUSB0
+ mc $ #  stm32flash -b 115200 -w   ./eForth720-nomalque-trange-a.bin   /dev/ttyUSB0
+
+ mc $ #  cf-fastpico9t_lfcr /dev/ttyUSB0 
+
+ The above is verbatim from stored command line history (stored as comments).
+
+ These two were used (alternately):
+
+ $ stm32flash -b 115200 -r  ./eForth720-merlain-plekque-a.bin  -S 0x08000000:12288 /dev/ttyUSB0
+ $ stm32flash -b 115200 -r  ./eForth720-nomalque-trange-a.bin  -S 0x08000000:12288 /dev/ttyUSB0
+
+ .. to create new images of resident firmware (use TURNKEY word in eForth 7.20 to make
+ them unique, by storing new definitions).
+
+ All write ops drop all explicit addressing, as in:
+
+ $ stm32flash -b 115200 -w  ./eForth720-merlain-plekque-a.bin   /dev/ttyUSB0
+
+ .. trusting defaults.
+
+end.
